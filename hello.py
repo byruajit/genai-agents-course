@@ -22,3 +22,4 @@ for chunk in stream:
     if chunk.usage:
         u = chunk.usage
         print(f"\n\nprompt={u.prompt_tokens} completion={u.completion_tokens} total={u.total_tokens}")
+        break
