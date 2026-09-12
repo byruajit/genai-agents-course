@@ -1,0 +1,15 @@
+[project]
+name = "genai-agents-course"
+version = "0.1.0"
+description = "GenAI · Agentic AI · AI Agents — course repo (Ajit Byru)"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "openai>=1.60,<2",
+    "python-dotenv>=1.0,<2",
+    "pydantic>=2.7,<3",
+    "pytest>=8.2,<9",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
