@@ -4,7 +4,9 @@ Instructor: **Ajit Byru** · `ajitbyru@gmail.com` · github.com/byruajit
 
 This repository is the single source of truth for the course: every command shown in class is here, character for character. If a slide and this README disagree, the README wins.
 
-**Rule for the whole course: every Python command starts with `uv run`.** Never plain `python`.
+**Rule for the whole course: every Python command starts with `uv run`.** Never plain `python`, never `conda`. Have Anaconda? Keep it — it is never used and never touched. See `(base)` in your prompt? Ignore it.
+
+> **Starting at Session 9?** Session 1's Git section is covered by the Git & GitHub webinar — watch it before Session 14. Do only step 8 of Session 1 (clone this repo), then all of Session 2's setup.
 
 ---
 
@@ -78,11 +80,24 @@ You create your own free Groq key at console.groq.com. It lives in `.env` and no
 - Baseline quiz: _(added by instructor)_
 - Fix videos: _(coming)_
 
+## Session 9b — tokens, cost, context, embeddings
+
+```powershell
+git pull
+uv sync                                  # adds jupyter, tiktoken, numpy, matplotlib
+ollama pull nomic-embed-text             # 270 MB, for the embeddings section (optional: a cached copy is used if Ollama is absent)
+uv run jupyter lab module01/s09_tokens.ipynb
+uv run pytest tests/test_s09.py          # checkpoint
+```
+Pre-read: `module01/reading_tokens.md` (10 minutes). First run of `tiktoken` downloads its encoding file once (needs internet).
+
 ## Layout
 ```
+module01/                   Session 9b notebook, helpers, pre-read
 hello.py                    Session 2 first call
 list_models.py              which models your key can use
 tests/test_setup.py         Session 2 checkpoint
+tests/test_s09.py           Session 9b checkpoint
 cheatsheet/python-for-agents.md
 .env.example                copy to .env
 pyproject.toml              pinned dependencies (uv sync)
