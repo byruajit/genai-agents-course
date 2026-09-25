@@ -29,12 +29,17 @@ def test_cost_function():
 
 @pytest.mark.skipif(not os.getenv("API_KEY") or "paste_your" in os.getenv("API_KEY", ""), reason="no API key in .env")
 def test_estimate_matches_model_usage():
+    """The provider wraps your message in a chat template (~70 tokens for gpt-oss on Groq).
+    Measure the wrapper with a tiny message, subtract it, and the estimate should match."""
+    client = chat_client(); model = os.getenv("MODEL")
+    def usage(text):
+        r = client.chat.completions.create(model=model, max_tokens=8, messages=[{"role": "user", "content": text}])
+        return r.usage.prompt_tokens
+    overhead = usage("hi") - count_tokens("hi")
     estimate = count_tokens(ENGLISH)
-    r = chat_client().chat.completions.create(model=os.getenv("MODEL"), max_tokens=8,
-                                              messages=[{"role": "user", "content": ENGLISH}])
-    actual = r.usage.prompt_tokens
-    # The model wraps the message in a few template tokens; allow a small margin.
-    assert abs(actual - estimate) <= max(4, int(0.15 * actual)), f"estimate {estimate} vs usage {actual}"
+    actual = usage(ENGLISH) - overhead
+    assert overhead > 0, "expected a chat-template wrapper"
+    assert abs(actual - estimate) <= max(3, int(0.10 * estimate)), f"estimate {estimate} vs usage-minus-template {actual} (template {overhead})"
 
 
 def test_embeddings_give_ten_points():
