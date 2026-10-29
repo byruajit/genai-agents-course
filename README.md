@@ -254,6 +254,25 @@ honestly rather than assuming either fix "just works." **Budget:** about 20,000-
 conversations, plus summarization's own extra calls). Your submission is `experiments/s19_chat_memory.md`, pushed to **your own** `genai-course-work`
 repository. The checkpoint test is skipped without a key (read the reason with `-rs`: a skip is not a pass).
 
+## Session 20 — function calling: giving BankAssist hands
+
+```powershell
+git pull
+uv sync                                  # no new packages
+ollama pull llama3.2:3b                  # only if your .env points at Ollama (BASE_URL=http://localhost:11434/v1)
+uv run jupyter lab module03/s20_function_calling.ipynb
+$env:WORK_REPO = "$HOME\Documents\genai-course-work"
+uv run pytest tests/test_s20.py -rs      # checkpoint: golden set scored four ways, model named
+```
+Pre-read: Part A of `s20_function_calling.ipynb` is self-contained. Terms: `module03/terms_s20.md`. BankAssist from Session 19
+gets three tools (`calculate_emi`, `get_rate`, `check_eligibility`) using the raw OpenAI-compatible API, no framework. The round trip is
+built by hand, then in a loop capped at three steps. Students watch a model call the wrong tool with invented arguments, then fix it three
+ways: prompt guidance, argument validation fed back to the model, and a router that decides "needs a tool?" first. A 10-question golden set
+is scored four ways (right tool, valid arguments, correct answer). Runs unchanged on Groq `openai/gpt-oss-20b` or local Ollama
+`llama3.2:3b`. **Budget:** on Groq about 30,000-50,000 tokens of the 200,000-a-day limit; on Ollama, free. Answers are cached in
+`~/.genai_course/s20_cache.json`. Your submission is `experiments/s20_tools.md`, pushed to **your own** `genai-course-work` repository.
+Instructor pre-class run on any model: `uv run python module03/s20_golden_run.py` (or `--ollama llama3.2:3b`).
+
 ## Layout
 ```
 module01/                   Sessions 9a-13 notebooks, helpers, pre-reads
@@ -274,6 +293,7 @@ tests/test_s16.py           Session 16 checkpoint
 tests/test_s17.py           Session 17 checkpoint
 tests/test_s18.py           Session 18 checkpoint
 tests/test_s19.py           Session 19 checkpoint
+tests/test_s20.py           Session 20 checkpoint
 module02/                   Module 2 (prompt engineering): S14-S18 notebooks, helpers, work-repo steps
 module03/                   Module 3 (LLM applications): S19-S23 notebooks, helpers, work-repo steps
 cheatsheet/python-for-agents.md
