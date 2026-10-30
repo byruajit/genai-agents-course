@@ -6,6 +6,7 @@
 | `KeyError: 'MODEL'` (or `'BASE_URL'`, `'API_KEY'`) | Your `.env` wasn't found | Run from the **course repo folder**: `uv run python $env:WORK_REPO\s21\bankassist_lc.py` — not from inside your work repo |
 | `STEP 3: not done yet (TODO 3)` | Not an error: that TODO still has `raise NotImplementedError` | Replace the `raise ...` line with your code |
 | `ImportError: cannot import name 'LLMChain'` / `No module named 'langchain.chat_models'` / `langchain_community` | Old LangChain code, usually from ChatGPT | Paste `s21_version_card.md` into ChatGPT first; use only the imports already at the top of your file |
+| `NameError: name 'get_rate' is not defined` | You used a name on a line *above* the place it's defined — Python reads the file top to bottom | Move the `@tool def get_rate(...)` block **above** the line that uses it (e.g. `TOOLS[...] = get_rate`), or remove it from that line if you haven't written it yet |
 | `openai.NotFoundError: ... model ... not found` (404) | `MODEL` in `.env` doesn't match a model your provider has | Ollama: `ollama list` and copy the name exactly. Groq: `uv run python list_models.py` |
 | `openai.APIConnectionError` / `Connection refused` | Ollama isn't running (if `BASE_URL` is localhost) | Start the Ollama app, or run `ollama serve` |
 | `AttributeError: 'str' object has no attribute 'tool_calls'` | You called the **chain** (which returns text) inside `ask()` | `ask()` must call `llm_with_tools.invoke(messages)`, which returns an `AIMessage` |
