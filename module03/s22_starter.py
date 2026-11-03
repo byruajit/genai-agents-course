@@ -37,7 +37,7 @@ SYSTEM = ("You are BankAssist, Northwind Bank's assistant. Branches are open 10a
 # You can override either one in .env with LLM_PRIMARY=... and LLM_FALLBACK=...
 _on_ollama = "11434" in os.getenv("BASE_URL", "")
 PRIMARY = os.getenv("LLM_PRIMARY") or (("ollama_chat/" if _on_ollama else "groq/") + os.getenv("MODEL", "openai/gpt-oss-20b"))
-FALLBACK = os.getenv("LLM_FALLBACK") or "groq/llama-3.1-8b-instant"   # a second, smaller Groq model
+FALLBACK = os.getenv("LLM_FALLBACK") or "groq/openai/gpt-oss-120b"   # a second Groq model (check: uv run python list_models.py)
 
 
 def params(model: str) -> dict:

@@ -7,7 +7,7 @@
 | `STEP 4: not done yet (TODO 1)` | Step 4 needs `ask_once()` from TODO 1 | Finish TODO 1 first |
 | `KeyError: 'MODEL'` / everything says "not set" | Your `.env` wasn't found | Run from the **course repo folder**: `uv run python $env:WORK_REPO\s22\bankassist_llm.py` |
 | `AuthenticationError` ... `Invalid API Key` | Wrong or missing Groq key for that model | Check `API_KEY` in `.env`. On Ollama with a Groq fallback, add `GROQ_API_KEY=...` |
-| `NotFoundError` / `model_not_found` / `decommissioned` on the FALLBACK | That Groq model was retired | `uv run python list_models.py`, pick another small model, add `LLM_FALLBACK=groq/<name>` to `.env` |
+| `NotFoundError` / `model_not_found` / `decommissioned` on the FALLBACK | That Groq model was retired | `uv run python list_models.py`, pick another model from the list, add `LLM_FALLBACK=groq/<name>` to `.env` |
 | `BadRequestError: LLM Provider NOT provided` | The model string has no provider prefix | Use `groq/...` or `ollama_chat/...`, never just `gpt-oss-20b` |
 | `APIConnectionError` / `Connection refused` on `ollama_chat/...` | Ollama isn't running | Start the Ollama app, or `ollama serve` |
 | `RateLimitError` (429) | Groq's free-tier limit for that model | Wait a minute, or let STEP 3's fallback handle it — that's the point of today |

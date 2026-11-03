@@ -117,14 +117,14 @@ def check_s22_work(repo_path) -> list:
     # STEP 3
     name3 = "TODO 3 - make_router() falls back from \"bankassist\" to \"bankassist-backup\""
     try:
-        router = mod.make_router(primary="groq/model-that-does-not-exist", fallback="groq/llama-3.1-8b-instant")
+        router = mod.make_router(primary="groq/model-that-does-not-exist", fallback="groq/openai/gpt-oss-120b")
         groups = sorted({d["model_name"] for d in router.model_list}) if isinstance(router, Router) else []
         ok = isinstance(router, Router) and groups == ["bankassist", "bankassist-backup"]
         detail = f"got {type(router).__name__} with groups {groups}"
         if ok:
             r = router.completion(model="bankassist", messages=mod.messages_for(Q),
                                   mock_testing_fallbacks=True, mock_response=CANNED)
-            ok = mod.answered_by(r) == "groq/llama-3.1-8b-instant" and mod.fallbacks_used(r) >= 1
+            ok = mod.answered_by(r) == "groq/openai/gpt-oss-120b" and mod.fallbacks_used(r) >= 1
             detail = f"after the primary failed, {mod.answered_by(r)} answered - check fallbacks=[{{'bankassist': ['bankassist-backup']}}]"
         out.append(ck(name3, ok, detail))
     except Exception as e:  # noqa: BLE001
