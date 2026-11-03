@@ -290,6 +290,23 @@ check after each. Using ChatGPT is allowed: paste `module03/s21_version_card.md`
 ready to explain your code. Stuck? `module03/s21_common_errors.md`. Runs on Groq `openai/gpt-oss-20b` or Ollama `llama3.2:3b`.
 **Budget:** a few thousand tokens; the checkpoint itself makes no model calls. Submission: commit and push `s21/bankassist_lc.py`.
 
+## Session 22 — LiteLLM: one call format, many models, fallbacks and cost
+
+```powershell
+git pull
+uv sync                                  # NEW: litellm==1.80.0 (pinned)
+$env:WORK_REPO = "$HOME\Documents\genai-course-work"
+uv run jupyter lab module03/s22_litellm_build.ipynb      # Section 1 copies the starter into your work repo
+uv run python $env:WORK_REPO\s22\bankassist_llm.py       # run YOUR file, from the course repo folder
+uv run pytest tests/test_s22.py -rs      # checkpoint: tests the functions YOU wrote (offline, no tokens)
+```
+Pre-read: Part A of `s22_litellm_build.ipynb`. Terms: `module03/terms_s22.md`. Build-your-own, like Session 21: in
+`s22/bankassist_llm.py` (your own work repo) you call any provider with one `completion()` call, compare two models by
+changing a string, add a Router that falls back when the primary fails (you break the primary on purpose), and log
+tokens, cost and latency per request. Your models come from your existing `.env` (Groq `gpt-oss-20b` primary, a smaller
+Groq model as fallback; Ollama users see the notebook's table). ChatGPT: paste `module03/s22_version_card.md` first,
+never paste your `.env` or key. Stuck? `module03/s22_common_errors.md`. **Budget:** a few thousand tokens.
+
 ## Layout
 ```
 module01/                   Sessions 9a-13 notebooks, helpers, pre-reads
@@ -312,6 +329,7 @@ tests/test_s18.py           Session 18 checkpoint
 tests/test_s19.py           Session 19 checkpoint
 tests/test_s20.py           Session 20 checkpoint
 tests/test_s21.py           Session 21 checkpoint (tests your own s21/bankassist_lc.py)
+tests/test_s22.py           Session 22 checkpoint (tests your own s22/bankassist_llm.py)
 module02/                   Module 2 (prompt engineering): S14-S18 notebooks, helpers, work-repo steps
 module03/                   Module 3 (LLM applications): S19-S23 notebooks, helpers, work-repo steps
 cheatsheet/python-for-agents.md
