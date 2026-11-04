@@ -303,8 +303,8 @@ uv run pytest tests/test_s22.py -rs      # checkpoint: tests the functions YOU w
 Pre-read: Part A of `s22_litellm_build.ipynb`. Terms: `module03/terms_s22.md`. Build-your-own, like Session 21: in
 `s22/bankassist_llm.py` (your own work repo) you call any provider with one `completion()` call, compare two models by
 changing a string, add a Router that falls back when the primary fails (you break the primary on purpose), and log
-tokens, cost and latency per request. Your models come from your existing `.env` (Groq `gpt-oss-20b` primary, a smaller
-Groq model as fallback; Ollama users see the notebook's table). ChatGPT: paste `module03/s22_version_card.md` first,
+tokens, cost and latency per request. Your models come from your existing `.env` (Groq `gpt-oss-20b` primary, the larger
+`gpt-oss-120b` as fallback; Ollama users see the notebook's table). ChatGPT: paste `module03/s22_version_card.md` first,
 never paste your `.env` or key. Stuck? `module03/s22_common_errors.md`. **Budget:** a few thousand tokens.
 
 ## Session 23 — serving BankAssist: FastAPI, memory per session, streaming
