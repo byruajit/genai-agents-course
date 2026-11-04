@@ -1,10 +1,10 @@
 """Session 23 - serving BankAssist, the SIMPLE version: a complete web server. Run it, use it, then change ONE line
 at a time.
 
-1. Copy it into your work repo (so `git pull` never clashes with your changes):
-       copy module03\\s23_simple.py $env:WORK_REPO\\s23\\simple_app.py        # Ubuntu/macOS: cp ... $WORK_REPO/s23/
+1. Copy it into your work repo, as s23\\app.py (so `git pull` never clashes with your changes, and the checkpoint finds it):
+       mkdir $env:WORK_REPO\\s23 ; copy module03\\s23_simple.py $env:WORK_REPO\\s23\\app.py       # Ubuntu/macOS: mkdir -p, cp
 2. Start it from the COURSE repo folder (so your .env is found) - terminal 1, leave it running:
-       uv run python $env:WORK_REPO\\s23\\simple_app.py
+       uv run python $env:WORK_REPO\\s23\\app.py
 3. Open http://127.0.0.1:8000/docs in a browser and try every endpoint (the list is printed when it starts).
 4. Terminal 2 (course repo folder):   uv run python module03/s23_client.py
 5. Then the CHANGE ME lines, one at a time. After EVERY change: Ctrl+C in terminal 1, start it again.
@@ -32,7 +32,7 @@ Facts you may quote: branches 10am-4pm Mon-Fri, 10am-1pm Saturday, closed Sunday
 9.0% fixed. Personal loan 10.5% fixed. Remember what the customer told you earlier in this conversation.
 Use a tool only for an exact EMI or today's rate."""     # CHANGE ME (3): "Answer in ONE short sentence."
 
-KEEP_TURNS = 3       # CHANGE ME (1): try 0 -> it forgets your name. One turn = your message + its answer.
+KEEP_TURNS = 4       # CHANGE ME (1): try 0 -> it forgets your name. One turn = your message + its answer.
 MAX_STEPS = 3        # CHANGE ME (4): try 1 -> an EMI question can't finish (it needs a tool AND an answer)
 
 
