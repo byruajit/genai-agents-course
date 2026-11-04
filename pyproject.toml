@@ -16,6 +16,8 @@ dependencies = [
     "langchain==1.4.7",              # S21+: pinned - LangChain APIs change between releases
     "langchain-openai==1.1.9",       # newest that works with openai<2 (S9-S20 are tested on openai 1.x)
     "litellm==1.80.0",               # S22+: pinned - one call format for many providers, fallbacks, cost
+    "fastapi==0.162.0",              # S23+: serving BankAssist (pinned, same reason as LangChain)
+    "uvicorn==0.54.0",               # S23+: the server that runs a FastAPI app
 ]
 
 [tool.pytest.ini_options]

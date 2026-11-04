@@ -307,6 +307,24 @@ tokens, cost and latency per request. Your models come from your existing `.env`
 Groq model as fallback; Ollama users see the notebook's table). ChatGPT: paste `module03/s22_version_card.md` first,
 never paste your `.env` or key. Stuck? `module03/s22_common_errors.md`. **Budget:** a few thousand tokens.
 
+## Session 23 — serving BankAssist: FastAPI, memory per session, streaming
+
+```powershell
+git pull
+uv sync                                  # NEW: fastapi==0.162.0 and uvicorn==0.54.0 (pinned)
+$env:WORK_REPO = "$HOME\Documents\genai-course-work"
+uv run jupyter lab module03/s23_serving.ipynb             # Section 1 copies the starter into your work repo
+uv run python $env:WORK_REPO\s23\app.py                  # terminal 1: YOUR server on http://127.0.0.1:8000 (/docs to try it)
+uv run python module03/s23_client.py                     # terminal 2: talks to it - memory, sessions, 422, a streamed answer
+uv run pytest tests/test_s23.py -rs      # checkpoint: tests YOUR endpoints with a scripted model (offline, no tokens)
+```
+Pre-read: Part A of `s23_serving.ipynb`. Terms: `module03/terms_s23.md`. You write `s23/app.py` in **your own** work repository from
+`module03/s23_starter.py`. PART 1 is given: Session 21's BankAssist, now streaming. PART 2 is yours, with six TODOs: `GET /health`, Pydantic
+request and response models, a sliding-window `window()`, `POST /chat` with one memory per `session_id`, `POST /chat/stream` as Server-Sent
+Events, and a stretch `DELETE /sessions/{id}`. ChatGPT: paste `module03/s23_version_card.md` first. Stuck? `module03/s23_common_errors.md`.
+Section 10 bridges to LiteLLM (S22) and the gateway (S23b). **Homework, required for Session 23b:** Docker Desktop installed and
+`docker run hello-world` working. Submission: commit and push `s23/app.py`.
+
 ## Session 23b — Gateway + Docker: the LiteLLM proxy, in containers
 
 ```powershell
@@ -346,6 +364,7 @@ tests/test_s19.py           Session 19 checkpoint
 tests/test_s20.py           Session 20 checkpoint
 tests/test_s21.py           Session 21 checkpoint (tests your own s21/bankassist_lc.py)
 tests/test_s22.py           Session 22 checkpoint (tests your own s22/bankassist_llm.py)
+tests/test_s23.py           Session 23 checkpoint (tests your own s23/app.py)
 tests/test_s23b.py          Session 23b checkpoint (gateway files; live check while the gateway runs)
 module03/s23b_gateway/      Session 23b gateway: config.yaml, docker-compose.yml, proxy + hello_app Dockerfiles
 module02/                   Module 2 (prompt engineering): S14-S18 notebooks, helpers, work-repo steps
