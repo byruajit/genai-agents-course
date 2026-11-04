@@ -166,3 +166,14 @@ def test_checkpoint_your_s23_server_passes():
         print(f"  {'PASS' if r.passed else 'FAIL'}  {r.name}" + (f"   ({r.detail})" if r.detail else ""))
     failed = [r for r in results if not r.passed]
     assert not failed, "fix the FAILs above, then run this again"
+
+
+def test_the_simple_version_passes_the_same_checks(tmp_path):
+    """module03/s23_simple.py (the run-and-change version) is a complete server: as a student's s23/app.py it must
+    pass every check the build-your-own version has to pass."""
+    repo = tmp_path / "work"
+    (repo / "s23").mkdir(parents=True)
+    (repo / "s23" / "app.py").write_text((ROOT / "module03" / "s23_simple.py").read_text(encoding="utf-8"),
+                                         encoding="utf-8")
+    failed = [(r.name, r.detail) for r in check_s23_work(repo) if not r.passed]
+    assert not failed, failed

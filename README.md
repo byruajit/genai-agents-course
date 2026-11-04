@@ -315,6 +315,8 @@ uv sync                                  # NEW: fastapi==0.162.0 and uvicorn==0.
 $env:WORK_REPO = "$HOME\Documents\genai-course-work"
 uv run jupyter lab module03/s23_serving.ipynb             # Section 1 copies the starter into your work repo
 uv run python $env:WORK_REPO\s23\app.py                  # terminal 1: YOUR server on http://127.0.0.1:8000 (/docs to try it)
+# Stuck, or want to see it working first?  module03\s23_simple.py is a COMPLETE server: copy it to $env:WORK_REPO\s23\simple_app.py,
+# run it the same way, then change one CHANGE ME line at a time (memory window, /health, prompt, step cap, request size).
 uv run python module03/s23_client.py                     # terminal 2: talks to it - memory, sessions, 422, a streamed answer
 uv run pytest tests/test_s23.py -rs      # checkpoint: tests YOUR endpoints with a scripted model (offline, no tokens)
 ```
