@@ -1,0 +1,27 @@
+{
+  "store": "Northwind Store (a fictional online store)",
+  "store_today": "2026-11-14",
+  "note": "store_today is fixed so every run gives the same answers. Prices in rupees.",
+  "orders": [
+    {"order_id": "ORD-10231", "customer": "Asha",   "item": "Running shoes (size 8)",     "category": "footwear",    "price": 2499, "status": "delivered",        "ordered_on": "2026-11-04", "delivered_on": "2026-11-09"},
+    {"order_id": "ORD-10232", "customer": "Rahul",  "item": "Cotton T-shirts, pack of 3", "category": "apparel",     "price": 899,  "status": "delivered",        "ordered_on": "2026-10-23", "delivered_on": "2026-10-28"},
+    {"order_id": "ORD-10233", "customer": "Meera",  "item": "Bluetooth headphones",       "category": "electronics", "price": 3999, "status": "shipped",          "ordered_on": "2026-11-11", "expected_delivery": "2026-11-16"},
+    {"order_id": "ORD-10234", "customer": "Vikram", "item": "Innerwear set",              "category": "innerwear",   "price": 699,  "status": "delivered",        "ordered_on": "2026-11-08", "delivered_on": "2026-11-12"},
+    {"order_id": "ORD-10235", "customer": "Sana",   "item": "Basmati rice, 5 kg",         "category": "groceries",   "price": 549,  "status": "out_for_delivery", "ordered_on": "2026-11-12", "expected_delivery": "2026-11-14"},
+    {"order_id": "ORD-10236", "customer": "Arjun",  "item": "Gift card, Rs 1000",         "category": "gift_cards",  "price": 1000, "status": "delivered",        "ordered_on": "2026-11-09", "delivered_on": "2026-11-10"},
+    {"order_id": "ORD-10237", "customer": "Priya",  "item": "Steel water bottle",         "category": "home",        "price": 399,  "status": "placed",           "ordered_on": "2026-11-14", "expected_delivery": "2026-11-19"},
+    {"order_id": "ORD-10238", "customer": "Kiran",  "item": "Laptop backpack",            "category": "bags",        "price": 1799, "status": "cancelled",        "ordered_on": "2026-11-03", "cancelled_on": "2026-11-05"},
+    {"order_id": "ORD-10239", "customer": "Dev",    "item": "Smart watch",                "category": "electronics", "price": 5999, "status": "delivered",        "ordered_on": "2026-10-05", "delivered_on": "2026-10-10"},
+    {"order_id": "ORD-10240", "customer": "Nisha",  "item": "Yoga mat",                   "category": "sports",      "price": 1199, "status": "delivered",        "ordered_on": "2026-11-10", "delivered_on": "2026-11-13"},
+    {"order_id": "ORD-10241", "customer": "Farhan", "item": "Denim jacket (M)",           "category": "apparel",     "price": 2199, "status": "delivered",        "ordered_on": "2026-11-01", "delivered_on": "2026-11-06"},
+    {"order_id": "ORD-10242", "customer": "Lakshmi","item": "Pressure cooker, 5 L",       "category": "home",        "price": 1899, "status": "shipped",          "ordered_on": "2026-11-12", "expected_delivery": "2026-11-17"},
+    {"order_id": "ORD-10243", "customer": "Rohan",  "item": "Wireless mouse",             "category": "electronics", "price": 799,  "status": "delivered",        "ordered_on": "2026-10-30", "delivered_on": "2026-11-02"},
+    {"order_id": "ORD-10244", "customer": "Divya",  "item": "Kurta set",                  "category": "apparel",     "price": 1599, "status": "out_for_delivery", "ordered_on": "2026-11-11", "expected_delivery": "2026-11-14"},
+    {"order_id": "ORD-10245", "customer": "Imran",  "item": "Cricket bat",                "category": "sports",      "price": 3499, "status": "delivered",        "ordered_on": "2026-10-20", "delivered_on": "2026-10-25"},
+    {"order_id": "ORD-10246", "customer": "Sneha",  "item": "Face wash, pack of 2",       "category": "beauty",      "price": 349,  "status": "placed",           "ordered_on": "2026-11-13", "expected_delivery": "2026-11-18"},
+    {"order_id": "ORD-10247", "customer": "Ajay",   "item": "Office chair",               "category": "furniture",   "price": 6499, "status": "shipped",          "ordered_on": "2026-11-08", "expected_delivery": "2026-11-15"},
+    {"order_id": "ORD-10248", "customer": "Pooja",  "item": "Dark chocolate box",         "category": "groceries",   "price": 450,  "status": "delivered",        "ordered_on": "2026-11-06", "delivered_on": "2026-11-08"},
+    {"order_id": "ORD-10249", "customer": "Naveen", "item": "Phone case",                 "category": "electronics", "price": 299,  "status": "cancelled",        "ordered_on": "2026-11-10", "cancelled_on": "2026-11-10"},
+    {"order_id": "ORD-10250", "customer": "Tara",   "item": "Bedsheet set (double)",      "category": "home",        "price": 1299, "status": "delivered",        "ordered_on": "2026-11-02", "delivered_on": "2026-11-07"}
+  ]
+}

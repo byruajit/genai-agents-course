@@ -1,0 +1,167 @@
+"""Mini-Project 1 (ShopAssist) checkpoint. Run with:  uv run pytest tests/test_mp1.py -rs
+
+Offline: the checker imports YOUR app, swaps in a scripted model and sends real HTTP requests with TestClient. It
+also reads your git history, your Dockerfile, gateway/config.yaml, docker-compose.yml and your evidence files.
+
+THE CHECKPOINT: test_checkpoint_your_mp1_repo_passes needs MP1_REPO set to your own repo:
+    $env:MP1_REPO = "$HOME\\Documents\\shopassist-mp1"
+"""
+import os
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+import pytest
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "module02"))
+sys.path.insert(0, str(ROOT / "module03"))
+from mp1_check import check_mp1_work, gateway_problems, parse_results, report_sections  # noqa: E402
+
+STARTER = ROOT / "module03" / "mp1_starter"
+
+
+def git(repo, *args, email="me@example.com"):
+    subprocess.run(["git", "-c", "user.name=t", "-c", f"user.email={email}", *args], cwd=repo, check=True,
+                   capture_output=True)
+
+
+def starter_repo(tmp_path) -> Path:
+    repo = tmp_path / "shopassist-mp1"
+    shutil.copytree(STARTER, repo, ignore=shutil.ignore_patterns("__pycache__", ".venv"))
+    git(repo, "init", "-q")
+    git(repo, "add", ".")
+    git(repo, "commit", "-q", "-m", "starter")
+    return repo
+
+
+def find(results, prefix):
+    return next(r for r in results if r.name.startswith(prefix))
+
+
+def test_starter_files_compile():
+    for p in STARTER.rglob("*.py"):
+        compile(p.read_text(encoding="utf-8"), str(p), "exec")
+
+
+def test_eval_cases_are_well_formed():
+    sys.path.insert(0, str(STARTER))
+    try:
+        from eval.cases import ATTACKS, GOLDEN, MEMORY
+    finally:
+        sys.path.remove(str(STARTER))
+        for name in [n for n in sys.modules if n == "eval" or n.startswith("eval.")]:
+            del sys.modules[name]
+    assert len(GOLDEN) == 10 and len(ATTACKS) == 4 and len(MEMORY["turns"]) == 4
+    assert sum(bool(g["expect_tools"]) for g in GOLDEN) == 6
+    assert {a["family"] for a in ATTACKS} == {"override", "authority", "exfiltrate", "smuggle"}
+
+
+def test_untouched_starter_imports_and_fails_each_todo_clearly(tmp_path):
+    results = check_mp1_work(starter_repo(tmp_path))
+    assert find(results, "app imports").passed
+    for prefix in ("T1", "T2 - tools", "T2 - a bad", "T3", "T5", "evidence - mp1_results", "evidence - mp1_report",
+                   "evidence - README", "repo - your work"):
+        r = find(results, prefix)
+        assert not r.passed and r.detail, prefix
+    # what the starter already gives must pass: hygiene, Dockerfile, gateway wiring, the served app itself
+    for prefix in ("repo - .env", "repo - Dockerfile", "gateway", "T4", "app - /chat/stream"):
+        assert find(results, prefix).passed, (prefix, find(results, prefix).detail)
+    assert "ORD-12345" in find(results, "T2 - a bad").detail
+
+
+def test_a_committed_env_is_caught(tmp_path):
+    repo = starter_repo(tmp_path)
+    (repo / ".env").write_text("API_KEY=gsk_fake\n", encoding="utf-8")
+    git(repo, "add", "-f", ".env")
+    git(repo, "commit", "-q", "-m", "oops")
+    r = find(check_mp1_work(repo), "repo - .env")
+    assert not r.passed and "revoke" in r.detail
+
+
+def test_a_dockerfile_that_bakes_in_the_key_is_caught(tmp_path):
+    repo = starter_repo(tmp_path)
+    df = repo / "Dockerfile"
+    df.write_text(df.read_text(encoding="utf-8").replace("COPY data ./data", "COPY data ./data\nCOPY .env ."),
+                  encoding="utf-8")
+    assert not find(check_mp1_work(repo), "repo - Dockerfile").passed
+
+
+def test_gateway_wiring_mistakes_are_caught():
+    config = (STARTER / "gateway" / "config.yaml").read_text(encoding="utf-8")
+    compose = (STARTER / "docker-compose.yml").read_text(encoding="utf-8")
+    assert gateway_problems(config, compose) == []
+    assert gateway_problems(config, compose.replace("http://litellm:4000", "http://localhost:4000"))
+    assert gateway_problems(config.replace("os.environ/API_KEY", "gsk_abcdefghijklmnop", 1), compose)
+    assert gateway_problems(config.replace("os.environ/LITELLM_MASTER_KEY", "sk-1234"), compose)
+
+
+def test_enough_commits_pass_the_commit_check(tmp_path):
+    repo = starter_repo(tmp_path)
+    for i in range(4):
+        (repo / f"notes{i}.md").write_text("hi", encoding="utf-8")
+        git(repo, "add", f"notes{i}.md")
+        git(repo, "commit", "-q", "-m", f"T{i}")
+    assert find(check_mp1_work(repo), "repo - your work").passed
+
+
+def test_hand_written_or_failing_results_are_rejected(tmp_path):
+    repo = starter_repo(tmp_path)
+    res = repo / "experiments" / "mp1_results.md"
+    res.write_text("golden: 10/10\nmemory: pass\nattacks_resisted: 4/4\n", encoding="utf-8")   # no marker, no model
+    assert not find(check_mp1_work(repo), "evidence - mp1_results").passed
+    res.write_text("<!-- generated by eval/run_eval.py -->\n- model: shopassist (gateway x)\ngolden: 6/10\n"
+                   "memory: pass\nattacks_resisted: 4/4\n", encoding="utf-8")
+    assert not find(check_mp1_work(repo), "evidence - mp1_results").passed
+    res.write_text(res.read_text(encoding="utf-8").replace("6/10", "8/10"), encoding="utf-8")
+    assert find(check_mp1_work(repo), "evidence - mp1_results").passed
+
+
+def test_parsers():
+    p = parse_results("- model: shopassist (gateway http://litellm:4000)\n\ngolden: 7/10\nmemory: fail\n"
+                      "attacks_resisted: 3/4\n")
+    assert p == {"golden": 7, "attacks_resisted": 3, "memory": "fail", "model": "shopassist"}
+    secs = report_sections("# R\n## 1. Me\nabc def\n## 2. Flow\nTODO: x\n")
+    assert secs[1].split() == ["abc", "def"] and "TODO" in secs[2]
+
+
+def test_missing_repo_is_reported_not_raised(tmp_path):
+    assert not check_mp1_work(tmp_path / "nowhere")[0].passed
+
+
+def test_setup_copies_without_overwriting_and_writes_env(tmp_path):
+    repo = tmp_path / "shopassist-mp1"
+    repo.mkdir()
+    git(repo, "init", "-q")
+    (repo / "README.md").write_text("# shopassist-mp1\n", encoding="utf-8")                 # GitHub's default
+    (repo / "app").mkdir()
+    (repo / "app" / "tools.py").write_text("# my work\n", encoding="utf-8")
+    env = {**os.environ, "MP1_REPO": str(repo)}
+    out = subprocess.run([sys.executable, str(ROOT / "module03" / "mp1_setup.py")], env=env, capture_output=True,
+                         text=True, cwd=ROOT)
+    assert out.returncode == 0, out.stderr
+    assert (repo / "app" / "tools.py").read_text(encoding="utf-8") == "# my work\n"
+    assert "docker compose" in (repo / "README.md").read_text(encoding="utf-8")
+    assert (repo / "docker-compose.yml").exists() and (repo / "gateway" / "config.yaml").exists()
+    dotenv = (repo / ".env").read_text(encoding="utf-8")
+    assert "LITELLM_MASTER_KEY=sk-mp1-" in dotenv and "MODEL=shopassist" in dotenv
+
+
+def test_setup_refuses_the_course_repo():
+    env = {**os.environ, "MP1_REPO": str(ROOT)}
+    out = subprocess.run([sys.executable, str(ROOT / "module03" / "mp1_setup.py")], env=env, capture_output=True,
+                         text=True, cwd=ROOT)
+    assert out.returncode != 0 and "course repository" in out.stderr
+
+
+# ---------------------------------------------------------------- the checkpoint (offline, reads YOUR repo)
+@pytest.mark.skipif(not os.getenv("MP1_REPO"), reason="MP1_REPO not set: the checkpoint cannot find your repo")
+def test_checkpoint_your_mp1_repo_passes():
+    results = check_mp1_work(os.environ["MP1_REPO"])
+    for r in results:
+        print(f"  {'PASS' if r.passed else 'FAIL'}  {r.name}" + (f"   ({r.detail})" if r.detail else ""))
+    failed = [r for r in results if not r.passed]
+    assert not failed, "fix the FAILs above, then run this again"

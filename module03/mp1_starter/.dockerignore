@@ -1,0 +1,12 @@
+# Never copied into the image. .env is the important one: an image can be pushed and shared, and
+# anything inside it - including a key - can be read by whoever has the image.
+.env
+.env.*
+!.env.example
+.git
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+experiments
+eval

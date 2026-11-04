@@ -1,0 +1,19 @@
+# LiteLLM gateway for ShopAssist (GIVEN - the same rule book as Session 23b).
+# Your app asks for model="shopassist"; the gateway picks the real model and falls back if it fails.
+model_list:
+  - model_name: shopassist
+    litellm_params:
+      model: groq/openai/gpt-oss-20b
+      api_key: os.environ/API_KEY          # your Groq key - read from .env, never written here
+  - model_name: shopassist-backup
+    litellm_params:
+      model: groq/openai/gpt-oss-120b
+      api_key: os.environ/API_KEY
+
+router_settings:
+  num_retries: 1
+  timeout: 30
+  fallbacks: [{"shopassist": ["shopassist-backup"]}]
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY  # your app sends this; generated for you by mp1_setup.py

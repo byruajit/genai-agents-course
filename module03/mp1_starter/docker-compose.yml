@@ -1,0 +1,24 @@
+# ShopAssist: two containers, one command   ->   docker compose up --build
+#   litellm  the gateway (LiteLLM proxy)   http://localhost:4000 from your laptop
+#   app      ShopAssist (FastAPI)          http://localhost:8000/docs from your laptop
+# Inside Compose the app calls the gateway BY SERVICE NAME: http://litellm:4000 - never localhost.
+services:
+  litellm:
+    build: ./gateway
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./gateway/config.yaml:/app/config.yaml:ro   # edit, then: docker compose restart litellm
+    env_file:
+      - .env                                      # API_KEY (Groq) + LITELLM_MASTER_KEY
+
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env                                      # LITELLM_MASTER_KEY, MODEL, MEMORY, KEEP_TURNS
+    environment:
+      GATEWAY_URL: http://litellm:4000            # overrides .env's localhost value inside the container
+    depends_on:
+      - litellm

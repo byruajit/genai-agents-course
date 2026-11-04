@@ -6,6 +6,7 @@ __pycache__/
 .vscode/
 .DS_Store
 agent.py
+!module03/mp1_starter/app/agent.py
 module01/s10_matrix_output.md
 .ipynb_checkpoints/
 

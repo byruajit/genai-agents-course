@@ -341,6 +341,22 @@ with a fallback; apps send one URL and one key. You call it with raw HTTP and wi
 watch the gateway fall back, then start the gateway and an app together with Docker Compose. Your Groq key stays in your course `.env`
 (`API_KEY`) and never enters an image. Prepares Mini-Project 1 (ShopAssist).
 
+## Mini-Project 1 — ShopAssist (weekend, 2 × 2.5 h, solo)
+
+```powershell
+git pull
+# on GitHub: create an EMPTY repo called shopassist-mp1, then git clone it (e.g. into Documents)
+$env:MP1_REPO = "$HOME\Documents\shopassist-mp1"
+uv run python module03/mp1_setup.py                       # copies the starter + writes YOUR repo's .env (git-ignored)
+cd $env:MP1_REPO ; uv sync ; docker compose up --build    # gateway + ShopAssist -> http://localhost:8000/docs
+uv run python eval/run_eval.py                            # evidence: 10 golden, a memory probe, 4 attacks
+cd <course repo> ; uv run pytest tests/test_mp1.py -rs    # checkpoint (offline; reads YOUR repo via MP1_REPO)
+```
+Errors: `module03/mp1_common_errors.md`. A new app, built alone: order support for Northwind Store (a fictional online store) with
+LangChain tools, per-session memory, a defended prompt and streamed answers (S18-S23), reaching Groq **only through the LiteLLM
+gateway** and run with Docker Compose (S23b). Six tasks (T1-T6): return rules, argument validation, Security rules, memory choice,
+`/health`, and the README/report. Commit after each task. BankAssist stays the practice app.
+
 ## Layout
 ```
 module01/                   Sessions 9a-13 notebooks, helpers, pre-reads
@@ -367,6 +383,8 @@ tests/test_s22.py           Session 22 checkpoint (tests your own s22/bankassist
 tests/test_s23.py           Session 23 checkpoint (tests your own s23/app.py)
 tests/test_s23b.py          Session 23b checkpoint (gateway files; live check while the gateway runs)
 module03/s23b_gateway/      Session 23b gateway: config.yaml, docker-compose.yml, proxy + hello_app Dockerfiles
+tests/test_mp1.py           Mini-Project 1 checkpoint (tests your own shopassist-mp1 repo)
+module03/mp1_starter/       Mini-Project 1 starter: ShopAssist app, gateway, Compose, eval set
 module02/                   Module 2 (prompt engineering): S14-S18 notebooks, helpers, work-repo steps
 module03/                   Module 3 (LLM applications): S19-S23 notebooks, helpers, work-repo steps
 cheatsheet/python-for-agents.md
