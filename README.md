@@ -307,6 +307,22 @@ tokens, cost and latency per request. Your models come from your existing `.env`
 Groq model as fallback; Ollama users see the notebook's table). ChatGPT: paste `module03/s22_version_card.md` first,
 never paste your `.env` or key. Stuck? `module03/s22_common_errors.md`. **Budget:** a few thousand tokens.
 
+## Session 23b — Gateway + Docker: the LiteLLM proxy, in containers
+
+```powershell
+git pull
+docker run hello-world                                    # Docker must work (homework); no Docker? see Path B in the lab
+cd module03\s23b_gateway ; docker compose up --build litellm      # terminal 1: the gateway on http://localhost:4000
+uv run python module03/s23b_client.py                    # terminal 2 (course repo folder): answer, model group, fallbacks, cost
+docker compose up --build                                 # gateway + a tiny FastAPI app -> http://localhost:8000/docs
+uv run pytest tests/test_s23b.py -rs                      # checkpoint (offline; plus a live check while the gateway runs)
+```
+Lab guide: `module03/s23b_lab.md` (a terminal session, no notebook). Terms: `module03/terms_s23b.md`. Errors: `module03/s23b_common_errors.md`.
+LiteLLM from S22, now run as a **gateway server**: `config.yaml` maps the model groups `shopassist` / `shopassist-backup` to Groq models
+with a fallback; apps send one URL and one key. You call it with raw HTTP and with LangChain, break the primary model in `config.yaml` and
+watch the gateway fall back, then start the gateway and an app together with Docker Compose. Your Groq key stays in your course `.env`
+(`API_KEY`) and never enters an image. Prepares Mini-Project 1 (ShopAssist).
+
 ## Layout
 ```
 module01/                   Sessions 9a-13 notebooks, helpers, pre-reads
@@ -330,6 +346,8 @@ tests/test_s19.py           Session 19 checkpoint
 tests/test_s20.py           Session 20 checkpoint
 tests/test_s21.py           Session 21 checkpoint (tests your own s21/bankassist_lc.py)
 tests/test_s22.py           Session 22 checkpoint (tests your own s22/bankassist_llm.py)
+tests/test_s23b.py          Session 23b checkpoint (gateway files; live check while the gateway runs)
+module03/s23b_gateway/      Session 23b gateway: config.yaml, docker-compose.yml, proxy + hello_app Dockerfiles
 module02/                   Module 2 (prompt engineering): S14-S18 notebooks, helpers, work-repo steps
 module03/                   Module 3 (LLM applications): S19-S23 notebooks, helpers, work-repo steps
 cheatsheet/python-for-agents.md

@@ -1,0 +1,22 @@
+# LiteLLM PROXY config - Session 23b (GIVEN: read it, don't change it until the lab says so)
+# The proxy reads this file when it starts. Change it -> restart the proxy.
+
+model_list:
+  # A "model_name" is a NAME YOUR APPS ASK FOR - not a provider.  Apps send:  model="shopassist"
+  - model_name: shopassist
+    litellm_params:
+      model: groq/openai/gpt-oss-20b            # LAB STEP 5: change to groq/model-that-does-not-exist
+      api_key: os.environ/API_KEY               # read from the environment - the key never sits in this file
+
+  - model_name: shopassist-backup
+    litellm_params:
+      model: groq/openai/gpt-oss-120b
+      api_key: os.environ/API_KEY
+
+router_settings:
+  num_retries: 1                                # try the same model once more...
+  timeout: 30                                   # ...wait at most 30 s...
+  fallbacks: [{"shopassist": ["shopassist-backup"]}]   # ...then go to the backup group
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY     # every app must send this key ("Authorization: Bearer ...")

@@ -1,0 +1,25 @@
+# Two containers, one command:   docker compose up --build
+#   litellm  - the gateway (LiteLLM proxy)  -> http://localhost:4000 from your laptop
+#   app      - a tiny FastAPI app           -> http://localhost:8000/docs from your laptop
+# Inside Compose, containers find each other BY SERVICE NAME: the app calls http://litellm:4000, never localhost.
+services:
+  litellm:
+    build: ./proxy
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro         # edit config.yaml, then: docker compose restart litellm
+    env_file:
+      - ../../.env                                # your course .env: API_KEY (your Groq key) comes in here
+    environment:
+      LITELLM_MASTER_KEY: sk-class-1234           # a classroom key for your laptop only - never reuse it anywhere real
+
+  app:
+    build: ./hello_app
+    ports:
+      - "8000:8000"
+    environment:
+      PROXY_URL: http://litellm:4000              # the SERVICE NAME, not localhost
+      LITELLM_MASTER_KEY: sk-class-1234
+    depends_on:
+      - litellm
