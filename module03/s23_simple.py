@@ -1,8 +1,8 @@
 """Session 23 - serving BankAssist, the SIMPLE version: a complete web server. Run it, use it, then change ONE line
 at a time.
 
-1. Copy it into your work repo, as s23\\app.py (so `git pull` never clashes with your changes, and the checkpoint finds it):
-       mkdir $env:WORK_REPO\\s23 ; copy module03\\s23_simple.py $env:WORK_REPO\\s23\\app.py       # Ubuntu/macOS: mkdir -p, cp
+1. Copy it into your work repo as s23\\app.py - one command, from the COURSE repo folder:
+       uv run python module03/s23_setup.py        (it prints the exact commands for the next steps)
 2. Start it from the COURSE repo folder (so your .env is found) - terminal 1, leave it running:
        uv run python $env:WORK_REPO\\s23\\app.py
 3. Open http://127.0.0.1:8000/docs in a browser and try every endpoint (the list is printed when it starts).

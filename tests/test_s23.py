@@ -177,3 +177,29 @@ def test_the_simple_version_passes_the_same_checks(tmp_path):
                                          encoding="utf-8")
     failed = [(r.name, r.detail) for r in check_s23_work(repo) if not r.passed]
     assert not failed, failed
+
+
+def test_setup_copies_once_and_prints_the_next_commands(tmp_path):
+    import subprocess
+    repo = tmp_path / "genai-course-work"
+    repo.mkdir()
+    env = {**os.environ, "WORK_REPO": str(repo)}
+    run = lambda *a: subprocess.run([sys.executable, str(ROOT / "module03" / "s23_setup.py"), *a], env=env,
+                                    capture_output=True, text=True, cwd=tmp_path)
+    out = run()
+    assert out.returncode == 0, out.stderr
+    app = repo / "s23" / "app.py"
+    assert app.read_text(encoding="utf-8") == (ROOT / "module03" / "s23_simple.py").read_text(encoding="utf-8")
+    assert "uv run python" in out.stdout and str(app) in out.stdout
+    app.write_text("# my edits\n", encoding="utf-8")
+    assert "Kept" in run().stdout and app.read_text(encoding="utf-8") == "# my edits\n"   # never overwrites
+    run("--fresh")
+    assert "def window" in app.read_text(encoding="utf-8")
+
+
+def test_setup_refuses_a_missing_folder(tmp_path):
+    import subprocess
+    env = {**os.environ, "WORK_REPO": str(tmp_path / "nope")}
+    out = subprocess.run([sys.executable, str(ROOT / "module03" / "s23_setup.py")], env=env, capture_output=True,
+                         text=True, cwd=tmp_path)
+    assert out.returncode != 0 and "doesn't exist" in out.stderr
