@@ -349,11 +349,11 @@ watch the gateway fall back, then start the gateway and an app together with Doc
 ```powershell
 git pull
 # on GitHub: create an EMPTY repo called shopassist-mp1, then git clone it (e.g. into Documents)
-$env:MP1_REPO = "$HOME\Documents\shopassist-mp1"
+# add ONE line to this course repo's .env:   MP1_REPO=C:\Users\you\Documents\shopassist-mp1
 uv run python module03/mp1_setup.py                       # copies the starter + writes YOUR repo's .env (git-ignored)
-cd $env:MP1_REPO ; uv sync ; docker compose up --build    # gateway + ShopAssist -> http://localhost:8000/docs
+cd <your shopassist-mp1 folder> ; uv sync ; docker compose up --build    # gateway + ShopAssist -> http://localhost:8000/docs
 uv run python eval/run_eval.py                            # evidence: 10 golden, a memory probe, 4 attacks
-cd <course repo> ; uv run pytest tests/test_mp1.py -rs    # checkpoint (offline; reads YOUR repo via MP1_REPO)
+cd <course repo> ; uv run pytest tests/test_mp1.py -rs    # checkpoint (offline; reads YOUR repo via MP1_REPO in .env)
 ```
 Errors: `module03/mp1_common_errors.md`. A new app, built alone: order support for Northwind Store (a fictional online store) with
 LangChain tools, per-session memory, a defended prompt and streamed answers (S18-S23), reaching Groq **only through the LiteLLM

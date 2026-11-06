@@ -1,7 +1,8 @@
 """Mini-Project 1 (ShopAssist) - copy the starter into YOUR OWN repository. Run ONCE, from the course repo:
 
     # 1. on GitHub: create an EMPTY repo called shopassist-mp1, then clone it, e.g. into Documents
-    $env:MP1_REPO = "$HOME\\Documents\\shopassist-mp1"
+    # 2. add ONE line to the course repo's .env (the checkpoint reads it too):
+    #        MP1_REPO=C:\\Users\\you\\Documents\\shopassist-mp1
     uv run python module03/mp1_setup.py
 
 What it does:
@@ -10,7 +11,7 @@ What it does:
   - writes YOUR repo's .env (git-ignored): your Groq API_KEY copied from the course repo's .env, and a NEW random
     LITELLM_MASTER_KEY - the key your app sends to the gateway.
 
-Then:  cd $env:MP1_REPO ; git status   (.env must NOT be listed) ; git add . ; git commit -m "MP1: starter" ; git push
+Then:  cd <your shopassist-mp1 folder> ; git status   (.env must NOT be listed) ; git add . ; git commit -m "MP1: starter" ; git push
 """
 import os
 import secrets
@@ -18,7 +19,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from dotenv import dotenv_values
+from dotenv import dotenv_values, find_dotenv, load_dotenv
 
 ROOT = Path(__file__).resolve().parents[1]
 STARTER = ROOT / "module03" / "mp1_starter"
@@ -47,10 +48,11 @@ def make_env(course_env: Path) -> tuple[str, list]:
 
 
 def main() -> None:
-    target = Path(sys.argv[1] if len(sys.argv) > 1 else os.getenv("MP1_REPO") or "")
+    load_dotenv(find_dotenv(usecwd=True))          # MP1_REPO=... in the course .env works too (shell value wins)
+    target = Path(sys.argv[1] if len(sys.argv) > 1 else (os.getenv("MP1_REPO") or "").strip().strip('"'))
     if not str(target) or str(target) == "." or not target.is_dir():
-        sys.exit("Set MP1_REPO to your cloned shopassist-mp1 folder first, e.g.\n"
-                 '  $env:MP1_REPO = "$HOME\\Documents\\shopassist-mp1"')
+        sys.exit("MP1_REPO is not set (or that folder doesn't exist). Add this line to the course repo's .env:\n"
+                 "  MP1_REPO=C:\\Users\\you\\Documents\\shopassist-mp1     (the folder you cloned shopassist-mp1 into)")
     if not (target / ".git").exists():
         sys.exit(f"{target} is not a git repository - create shopassist-mp1 on GitHub and git clone it there first")
     if target.resolve() in (ROOT.resolve(), *ROOT.resolve().parents) or ROOT.resolve() in target.resolve().parents:
