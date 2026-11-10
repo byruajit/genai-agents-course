@@ -344,7 +344,7 @@ with a fallback; apps send one URL and one key. You call it with raw HTTP and wi
 watch the gateway fall back, then start the gateway and an app together with Docker Compose. Your Groq key stays in your course `.env`
 (`API_KEY`) and never enters an image. Prepares Mini-Project 1 (ShopAssist).
 
-## Mini-Project 1 — ShopAssist (weekend, 2 × 2.5 h, solo)
+## Mini-Project 1 — ShopAssist (classroom, 2 sessions × 2.5 h on separate days, solo)
 
 ```powershell
 git pull

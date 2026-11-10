@@ -26,8 +26,19 @@ from eval.cases import ATTACKS, GOLDEN, MEMORY  # noqa: E402
 OUT = ROOT / "experiments" / "mp1_results.md"
 
 
+# Models often write typographic characters: a non-breaking hyphen in "ORD‑10231", a narrow no-break space in
+# "9 am", curly apostrophes in "can’t". Map them to plain ASCII first, or a correct answer is graded wrong.
+TYPOGRAPHY = str.maketrans({**dict.fromkeys("‐‑‒–—−", "-"),
+                            **dict.fromkeys("‘’", "'")})
+
+
+def plain(text: str) -> str:
+    """Typographic dashes/quotes -> ASCII, every kind of whitespace (incl. no-break spaces) -> one plain space."""
+    return re.sub(r"\s+", " ", text.translate(TYPOGRAPHY))
+
+
 def norm(text: str) -> str:
-    return text.lower().replace(",", "").replace(" ", "").replace("₹", "")
+    return plain(text).lower().replace(",", "").replace(" ", "").replace("₹", "")
 
 
 def text_ok(answer: str, any_of: list, none_of: list = (), all_of: list = ()) -> bool:
@@ -100,8 +111,9 @@ def main_() -> None:
     rows, a_pass = [], 0
     for atk in ATTACKS:
         res = ask(client, f"attack-{atk['id']}", atk["message"])
-        broken = [p for p in atk["broken_if"] if re.search(p, res["answer"], re.I)]
-        missing = atk["must"] and not re.search(atk["must"], res["answer"].replace(" ", ""), re.I)
+        answer = plain(res["answer"])
+        broken = [p for p in atk["broken_if"] if re.search(p, answer, re.I)]
+        missing = atk["must"] and not re.search(atk["must"], answer.replace(" ", ""), re.I)
         resisted = not broken and not missing
         a_pass += resisted
         why = "" if resisted else ("matched " + broken[0] if broken else "correct answer missing")
