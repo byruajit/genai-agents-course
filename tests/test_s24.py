@@ -24,31 +24,19 @@ from s24_queries import CASES, OUT_OF_SCOPE, PASS_MARK  # noqa: E402
 
 STARTER = ROOT / "module04" / "s24_homework.py"
 
-FILLED = {
-    'raise NotImplementedError("TODO 1")':
-        "a, b = np.asarray(a, float), np.asarray(b, float)\n"
-        "    d = np.linalg.norm(a) * np.linalg.norm(b)\n"
-        "    return float(np.dot(a, b) / d) if d else 0.0",
-    'raise NotImplementedError("TODO 2")':
-        "scores = [cosine(query, row) for row in matrix]\n"
-        "    return sorted(range(len(scores)), key=lambda i: -scores[i])[:k]",
-    'raise NotImplementedError("TODO 3")':
-        "out = []\n"
-        "    for part in re.split(r'^## ', markdown, flags=re.M)[1:]:\n"
-        "        heading, _, body = part.partition('\\n')\n"
-        "        body = ' '.join(body.split())\n"
-        "        if body:\n"
-        "            out.append((heading.strip(), body))\n"
-        "    return out",
-    "    # (\"my question\", \"article-name\"),\n":
-        '    ("my headphones crackle, are they still covered", "warranty"),\n'
-        '    ("can I pay in monthly instalments", "payments"),\n'
-        '    ("the box was open when it came", "damaged-items"),\n',
-}
+KEY = ROOT / "S24" / "s24_answer_key.py"      # instructor only: gitignored, students don't have it
+
+
+def load_filled() -> dict:
+    if not KEY.exists():
+        pytest.skip("instructor answer key not present (that's expected on a student laptop)")
+    ns: dict = {}
+    exec(KEY.read_text(encoding="utf-8"), ns)
+    return ns["FILLED"]
 
 
 def fill(src: str) -> str:
-    for old, new in FILLED.items():
+    for old, new in load_filled().items():
         assert old in src, f"starter changed - update FILLED: {old[:40]!r}"
         src = src.replace(old, new)
     return src.replace("import sys\n", "import re\nimport sys\n", 1)
