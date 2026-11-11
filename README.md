@@ -344,6 +344,23 @@ with a fallback; apps send one URL and one key. You call it with raw HTTP and wi
 watch the gateway fall back, then start the gateway and an app together with Docker Compose. Your Groq key stays in your course `.env`
 (`API_KEY`) and never enters an image. Prepares Mini-Project 1 (ShopAssist).
 
+## Session 24 — embeddings: searching by meaning (starts Module 4)
+
+```powershell
+git pull
+uv sync                                   # NEW: fastembed==0.9.1 - embedding models on your CPU, no key, no cost
+uv run python module04/s24_demo.py search "my earbuds stopped working"   # keyword vs meaning, side by side
+uv run python module04/s24_demo.py compare                              # keyword vs two embedding models, hit@3
+uv run jupyter lab module04/s24_embeddings.ipynb                       # HOMEWORK: Parts A-D
+uv run python module04/s24_setup.py                                     # copies your homework file to <work repo>\s24\search.py
+uv run python "<your work repo>\s24\search.py"                          # runs YOUR functions; writes s24\results.md
+uv run pytest tests/test_s24.py -rs                                      # checkpoint (offline)
+```
+Taught on the board and live; the notebook is **homework**. Terms: `module04/terms_s24.md`. Data: the 14 Northwind help-centre
+articles in `module04/help_centre/` (53 sections, the same store as MP1). The first embedding downloads **BAAI/bge-small-en-v1.5**
+(~67 MB) once - use home Wi-Fi or a hotspot; after that everything is offline. Your file has four TODOs: `cosine()`, `top_k()`,
+`split_sections()` and three questions of your own. Stuck? `module04/s24_common_errors.md`. Submission: commit and push `s24/`.
+
 ## Mini-Project 1 — ShopAssist (classroom, 2 sessions × 2.5 h on separate days, solo)
 
 ```powershell
@@ -390,6 +407,8 @@ tests/test_mp1.py           Mini-Project 1 checkpoint (tests your own shopassist
 module03/mp1_starter/       Mini-Project 1 starter: ShopAssist app, gateway, Compose, eval set
 module02/                   Module 2 (prompt engineering): S14-S18 notebooks, helpers, work-repo steps
 module03/                   Module 3 (LLM applications): S19-S23 notebooks, helpers, work-repo steps
+module04/                   Module 4 (embeddings & vector databases): S24 demo, homework notebook, help centre
+tests/test_s24.py           Session 24 checkpoint (tests your own s24/search.py)
 cheatsheet/python-for-agents.md
 tools/update_course.py      safe update: back up your edited notebooks, then git pull
 UPDATING.md                 how to update when git pull refuses
