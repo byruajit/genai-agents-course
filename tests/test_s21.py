@@ -24,27 +24,31 @@ from s21_check import STUDENT_PATH, check_s21_work  # noqa: E402
 STARTER = ROOT / "module03" / "s21_starter.py"
 
 # What a finished student file looks like - each TODO's `raise NotImplementedError("TODO n")` replaced.
-FILLED = {
-    'raise NotImplementedError("TODO 1")':
-        'return ChatOpenAI(model=os.environ["MODEL"], base_url=os.environ["BASE_URL"], '
-        'api_key=os.environ["API_KEY"], temperature=0, max_tokens=1500)',
-    'raise NotImplementedError("TODO 2")':
-        'prompt = ChatPromptTemplate.from_messages([("system", SYSTEM), ("human", "{question}")])\n'
-        '    return prompt | llm | StrOutputParser()',
-    'raise NotImplementedError("TODO 3")':
-        'r = annual_rate / 12 / 100\n'
-        '    return round(principal * r * (1 + r) ** tenure_months / ((1 + r) ** tenure_months - 1))',
-    'raise NotImplementedError("TODO 4")':
-        'messages = [SystemMessage(SYSTEM), HumanMessage(question)]\n'
-        '    for step in range(1, max_steps + 1):\n'
-        '        ai = llm_with_tools.invoke(messages)\n'
-        '        messages.append(ai)\n'
-        '        if not ai.tool_calls:\n'
-        '            return ai.content\n'
-        '        for call in ai.tool_calls:\n'
-        '            messages.append(TOOLS[call["name"]].invoke(call))\n'
-        '    return "(stopped: step cap reached)"',
-}
+KEY = ROOT / "S21" / "s21_answer_key.py"      # instructor only: gitignored, students don't have it
+
+
+def answer(name: str):
+    if not KEY.exists():
+        pytest.skip("instructor answer key not present (that's expected on a student laptop)")
+    ns: dict = {}
+    exec(KEY.read_text(encoding="utf-8"), ns)
+    return ns[name]
+
+
+class _Key:
+    """FILLED, loaded only when a test uses it - so student laptops skip instead of failing."""
+
+    def keys(self):
+        return answer("FILLED").keys()
+
+    def items(self):
+        return answer("FILLED").items()
+
+    def __getitem__(self, k):
+        return answer("FILLED")[k]
+
+
+FILLED = _Key()
 
 
 def student_repo(tmp_path, source: str):

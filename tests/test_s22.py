@@ -22,34 +22,31 @@ from s22_check import STUDENT_PATH, check_s22_work  # noqa: E402
 STARTER = ROOT / "module03" / "s22_starter.py"
 
 # What a finished student file looks like - each TODO's `raise NotImplementedError("TODO n")` replaced.
-FILLED = {
-'    raise NotImplementedError("TODO 1")':
-'    return completion(**params(model), messages=messages_for(question), temperature=0, max_tokens=1500)',
-'    raise NotImplementedError("TODO 2")':
-'''    out = []
-    for model in (PRIMARY, FALLBACK):
-        response = ask_once(model, question)
-        out.append((model, response.choices[0].message.content))
-    return out''',
-'    raise NotImplementedError("TODO 3")':
-'''    return Router(
-        model_list=[
-            {"model_name": "bankassist", "litellm_params": params(primary)},
-            {"model_name": "bankassist-backup", "litellm_params": params(fallback)},
-        ],
-        fallbacks=[{"bankassist": ["bankassist-backup"]}],
-        num_retries=1,
-        timeout=30,
-    )''',
-'    raise NotImplementedError("TODO 4")':
-'''    p, c = response.usage.prompt_tokens, response.usage.completion_tokens
-    try:
-        cost_in, cost_out = cost_per_token(model=model, prompt_tokens=p, completion_tokens=c)
-        cost = cost_in + cost_out
-    except Exception:
-        cost = 0.0
-    return f"{model} | {p + c} tokens | ${cost:.6f} | {seconds:.2f}s"''',
-}
+KEY = ROOT / "S22" / "s22_answer_key.py"      # instructor only: gitignored, students don't have it
+
+
+def answer(name: str):
+    if not KEY.exists():
+        pytest.skip("instructor answer key not present (that's expected on a student laptop)")
+    ns: dict = {}
+    exec(KEY.read_text(encoding="utf-8"), ns)
+    return ns[name]
+
+
+class _Key:
+    """FILLED, loaded only when a test uses it - so student laptops skip instead of failing."""
+
+    def keys(self):
+        return answer("FILLED").keys()
+
+    def items(self):
+        return answer("FILLED").items()
+
+    def __getitem__(self, k):
+        return answer("FILLED")[k]
+
+
+FILLED = _Key()
 
 
 def student_repo(tmp_path, source: str):
