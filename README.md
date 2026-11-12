@@ -344,6 +344,23 @@ with a fallback; apps send one URL and one key. You call it with raw HTTP and wi
 watch the gateway fall back, then start the gateway and an app together with Docker Compose. Your Groq key stays in your course `.env`
 (`API_KEY`) and never enters an image. Prepares Mini-Project 1 (ShopAssist).
 
+## Session 25 — vector databases: a fast index for meaning
+
+```powershell
+git pull
+uv sync                                   # NEW: chromadb==1.5.5 - a vector database inside Python (files on disk, no server)
+uv run python module04/s25_demo.py load                                  # 53 sections -> a ChromaDB collection
+uv run python module04/s25_demo.py search "how long do refunds take" --category payments --since 2026-06-01
+uv run python module04/s25_demo.py recall                                # 20,000 vectors: exact vs three HNSW settings
+uv run jupyter lab module04/s25_vector_db.ipynb                          # HOMEWORK: Parts A-D
+uv run python module04/s25_setup.py                                      # copies your homework file to <work repo>\s25\store.py
+uv run python "<your work repo>\s25\store.py"                            # YOUR metadata, filters, recall; writes s25\results.md
+uv run pytest tests/test_s25.py -rs                                       # checkpoint (offline)
+```
+Every help-centre article now has a **category** and an **updated** date (`module04/help_centre_meta.json`) to filter on.
+Four TODOs: `make_metadata()`, `build_where()`, `recall_at_k()` and two filtered questions of your own. Terms:
+`module04/terms_s25.md` · stuck? `module04/s25_common_errors.md`. Needs Session 24's model (downloaded once).
+
 ## Session 24 — embeddings: searching by meaning (starts Module 4)
 
 ```powershell
@@ -407,8 +424,9 @@ tests/test_mp1.py           Mini-Project 1 checkpoint (tests your own shopassist
 module03/mp1_starter/       Mini-Project 1 starter: ShopAssist app, gateway, Compose, eval set
 module02/                   Module 2 (prompt engineering): S14-S18 notebooks, helpers, work-repo steps
 module03/                   Module 3 (LLM applications): S19-S23 notebooks, helpers, work-repo steps
-module04/                   Module 4 (embeddings & vector databases): S24 demo, homework notebook, help centre
+module04/                   Module 4 (embeddings & vector databases): S24-S25 demos, homework notebooks, help centre
 tests/test_s24.py           Session 24 checkpoint (tests your own s24/search.py)
+tests/test_s25.py           Session 25 checkpoint (tests your own s25/store.py)
 cheatsheet/python-for-agents.md
 tools/update_course.py      safe update: back up your edited notebooks, then git pull
 UPDATING.md                 how to update when git pull refuses

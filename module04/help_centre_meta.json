@@ -1,0 +1,58 @@
+{
+ "account-and-addresses": {
+  "category": "account",
+  "updated": "2026-02-15"
+ },
+ "cancellations": {
+  "category": "orders",
+  "updated": "2026-03-02"
+ },
+ "coupons": {
+  "category": "payments",
+  "updated": "2025-12-05"
+ },
+ "damaged-items": {
+  "category": "returns",
+  "updated": "2026-07-09"
+ },
+ "exchanges": {
+  "category": "returns",
+  "updated": "2026-04-22"
+ },
+ "gift-cards": {
+  "category": "payments",
+  "updated": "2025-11-20"
+ },
+ "payments": {
+  "category": "payments",
+  "updated": "2026-09-30"
+ },
+ "privacy-and-safety": {
+  "category": "account",
+  "updated": "2026-10-28"
+ },
+ "refunds": {
+  "category": "payments",
+  "updated": "2026-06-18"
+ },
+ "returns": {
+  "category": "returns",
+  "updated": "2026-10-01"
+ },
+ "shipping": {
+  "category": "orders",
+  "updated": "2026-08-14"
+ },
+ "size-guide": {
+  "category": "products",
+  "updated": "2025-09-01"
+ },
+ "support-contact": {
+  "category": "account",
+  "updated": "2026-05-06"
+ },
+ "warranty": {
+  "category": "returns",
+  "updated": "2025-10-11"
+ }
+}

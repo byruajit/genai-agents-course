@@ -19,6 +19,7 @@ dependencies = [
     "fastapi==0.162.0",              # S23+: serving BankAssist (pinned, same reason as LangChain)
     "uvicorn==0.54.0",               # S23+: the server that runs a FastAPI app
     "fastembed==0.9.1",              # S24+: embedding models on your CPU (bge-small) - no API key, no cost
+    "chromadb==1.5.5",               # S25+: a local vector database (files on disk, no server, no Docker)
 ]
 
 [tool.pytest.ini_options]
