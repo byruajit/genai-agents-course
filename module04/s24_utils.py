@@ -116,8 +116,12 @@ class Embedder:
         if self._model is None and self.runtime == "fastembed":
             try:
                 from fastembed import TextEmbedding
-            except ImportError as e:
-                raise RuntimeError("fastembed is not installed. Run:  uv sync") from e
+            except ImportError as e:                             # missing package OR a dependency that won't load
+                raise RuntimeError(f"fastembed could not be imported ({type(e).__name__}: {e}).\n"
+                                   "  - 'No module named fastembed': run  uv sync  from the course repo folder\n"
+                                   "  - 'DLL load failed' (onnxruntime, Windows): install the Microsoft Visual C++ "
+                                   "Redistributable (x64) from https://aka.ms/vs/17/release/vc_redist.x64.exe, "
+                                   "restart the terminal, try again") from e
             try:
                 self._model = TextEmbedding(self.model_id)       # first time: downloads the model (~67-90 MB)
             except Exception as e:                               # no internet, proxy, firewall
