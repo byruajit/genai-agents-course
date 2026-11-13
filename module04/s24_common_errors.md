@@ -17,3 +17,4 @@
 | `source code string cannot contain null bytes` | Damaged `.venv` (often OneDrive) | `uv sync --reinstall`; keep repos out of OneDrive |
 
 Using ChatGPT? Paste the TODO's docstring, never your `.env`, and make sure you can explain the answer line by line.
+| `fastembed is not installed` or `fastembed could not be imported` after `uv sync` | Old copy of the course code, or onnxruntime (fastembed's engine) can't load its DLL on Windows | `git pull` then `uv sync` in the course repo folder; `uv run python -c "import fastembed"` shows the real error. `DLL load failed`: install the Microsoft Visual C++ Redistributable x64 (https://aka.ms/vs/17/release/vc_redist.x64.exe), reopen the terminal |

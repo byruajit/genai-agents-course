@@ -16,3 +16,4 @@
 | `Set QDRANT_CLOUD_URL and QDRANT_CLOUD_API_KEY` | Optional cloud step without settings | Add both to the course `.env` - never commit them |
 | `TODO 3 tenant_filter('CUST-1001') let these customers through` | Filter on the wrong key, or `MatchExcept` | `FieldCondition(key="customer_id", match=MatchValue(value=customer_id))` |
 | `TODO 4 ... Pinecone is a managed cloud service` | Hospital data must stay on premises | Choose a self-hostable store and say why |
+| `fastembed is not installed` or `fastembed could not be imported` after `uv sync` | Old copy of the course code, or onnxruntime (fastembed's engine) can't load its DLL on Windows | `git pull` then `uv sync` in the course repo folder; `uv run python -c "import fastembed"` shows the real error. `DLL load failed`: install the Microsoft Visual C++ Redistributable x64 (https://aka.ms/vs/17/release/vc_redist.x64.exe), reopen the terminal |
