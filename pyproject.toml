@@ -20,6 +20,9 @@ dependencies = [
     "uvicorn==0.54.0",               # S23+: the server that runs a FastAPI app
     "fastembed==0.9.1",              # S24+: embedding models on your CPU (bge-small) - no API key, no cost
     "chromadb==1.5.5",               # S25+: a local vector database (files on disk, no server, no Docker)
+    "qdrant-client==1.15.1",         # S26+: client for the Qdrant vector database (server, cloud, or in-process)
+    "psycopg[binary]==3.2.9",        # S26+: PostgreSQL driver - for pgvector
+    "pgvector==0.4.1",               # S26+: lets psycopg send and receive vectors
 ]
 
 [tool.pytest.ini_options]

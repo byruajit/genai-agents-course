@@ -1,0 +1,8 @@
+[
+ {"id": "note-1001-a", "customer_id": "CUST-1001", "name": "Asha", "text": "Asha asked to deliver ORD-10233 to her office address on weekdays, not home."},
+ {"id": "note-1001-b", "customer_id": "CUST-1001", "name": "Asha", "text": "Asha's refund for ORD-10239 earbuds was declined - outside the 30-day window; warranty claim suggested."},
+ {"id": "note-1001-c", "customer_id": "CUST-1001", "name": "Asha", "text": "Asha prefers WhatsApp updates and does not want marketing calls."},
+ {"id": "note-1002-a", "customer_id": "CUST-1002", "name": "Ravi", "text": "Ravi's gift card ORD-10240 was delivered; he asked how to check the balance."},
+ {"id": "note-1002-b", "customer_id": "CUST-1002", "name": "Ravi", "text": "Ravi requested a refund to his original card for the cancelled yoga mat ORD-10236."},
+ {"id": "note-1002-c", "customer_id": "CUST-1002", "name": "Ravi", "text": "Ravi asked to change the delivery address for ORD-10242 before it ships."}
+]
