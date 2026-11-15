@@ -2,7 +2,7 @@
 
 | Term | What it is | Say it as | Comes back at |
 |---|---|---|---|
-| **Hybrid search** | Run keyword search AND vector search for the same question, then merge the two result lists. Catches exact words and paraphrases. | "Two detectives, one report." | S28 (Gate 1), all of Module 5, ShopAssist Pro |
+| **Hybrid search** | Run keyword search AND vector search for the same question, then merge the two result lists. Catches exact words and paraphrases. | "Two detectives, one report." | S28 (consolidation), all of Module 5, ShopAssist Pro |
 | **Exact-term question** | A question whose key word is a code, name or number: `SKU-EL-004`, `WELCOME10`, `HDFC`, `26cm`. Vectors often miss these. | "Words that have spelling, not meaning." | S29-S32 (RAG eval sets) |
 | **BM25** | The standard keyword-scoring formula (Elasticsearch, OpenSearch, Lucene). Adds a share per question word: rare words count more, repeats help less each time, long documents are scaled down. | "Ctrl+F with a score." | S28, S29, ShopAssist Pro (`rank_bm25`) |
 | **Tokenisation** | Turning text into the words search compares: lower case, drop stop words, trim plurals, keep codes whole. Decides what can ever match. | "Cutting text into search pieces." | S29 (chunking), S33 |
