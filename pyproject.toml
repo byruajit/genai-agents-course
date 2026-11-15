@@ -23,6 +23,7 @@ dependencies = [
     "qdrant-client==1.15.1",         # S26+: client for the Qdrant vector database (server, cloud, or in-process)
     "psycopg[binary]==3.2.9",        # S26+: PostgreSQL driver - for pgvector
     "pgvector==0.4.1",               # S26+: lets psycopg send and receive vectors
+    "rank-bm25==0.2.2",              # S27+: BM25 keyword search (pure Python, tiny)
 ]
 
 [tool.pytest.ini_options]

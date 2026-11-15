@@ -1,0 +1,487 @@
+{
+ "products": [
+  {
+   "sku": "SKU-FW-001",
+   "name": "Stride running shoes",
+   "category": "footwear",
+   "price": 2499,
+   "sizes": [
+    "UK 6",
+    "UK 7",
+    "UK 8",
+    "UK 9",
+    "UK 10"
+   ],
+   "colors": [
+    "black",
+    "blue"
+   ],
+   "in_stock": true,
+   "rating": 4.4,
+   "description": "Lightweight cushioned running shoes with a breathable mesh upper, for daily runs and gym."
+  },
+  {
+   "sku": "SKU-FW-002",
+   "name": "Trail Grip hiking shoes",
+   "category": "footwear",
+   "price": 3999,
+   "sizes": [
+    "UK 7",
+    "UK 8",
+    "UK 9",
+    "UK 10",
+    "UK 11"
+   ],
+   "colors": [
+    "brown",
+    "olive"
+   ],
+   "in_stock": true,
+   "rating": 4.5,
+   "description": "Water-resistant hiking shoes with a lugged rubber sole for trekking on wet and rocky trails."
+  },
+  {
+   "sku": "SKU-FW-003",
+   "name": "Breeze canvas sneakers",
+   "category": "footwear",
+   "price": 1299,
+   "sizes": [
+    "UK 5",
+    "UK 6",
+    "UK 7",
+    "UK 8",
+    "UK 9"
+   ],
+   "colors": [
+    "white",
+    "navy",
+    "red"
+   ],
+   "in_stock": true,
+   "rating": 4.1,
+   "description": "Classic low-top canvas sneakers for everyday casual wear."
+  },
+  {
+   "sku": "SKU-FW-004",
+   "name": "Sprint Lite running shoes",
+   "category": "footwear",
+   "price": 1899,
+   "sizes": [
+    "UK 7",
+    "UK 8",
+    "UK 9"
+   ],
+   "colors": [
+    "grey",
+    "green"
+   ],
+   "in_stock": true,
+   "rating": 4.0,
+   "description": "Budget running shoes with a flexible sole, good for beginners and walking."
+  },
+  {
+   "sku": "SKU-FW-005",
+   "name": "Office Classic leather loafers",
+   "category": "footwear",
+   "price": 3499,
+   "sizes": [
+    "UK 7",
+    "UK 8",
+    "UK 9",
+    "UK 10"
+   ],
+   "colors": [
+    "tan",
+    "black"
+   ],
+   "in_stock": false,
+   "rating": 4.3,
+   "description": "Genuine leather slip-on loafers for office and formal wear."
+  },
+  {
+   "sku": "SKU-FW-006",
+   "name": "Comfy home slippers",
+   "category": "footwear",
+   "price": 399,
+   "sizes": [
+    "UK 6",
+    "UK 7",
+    "UK 8",
+    "UK 9",
+    "UK 10"
+   ],
+   "colors": [
+    "grey",
+    "maroon"
+   ],
+   "in_stock": true,
+   "rating": 3.9,
+   "description": "Soft indoor slippers with an anti-skid sole."
+  },
+  {
+   "sku": "SKU-CL-001",
+   "name": "Cotton kurta",
+   "category": "clothing",
+   "price": 1299,
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "colors": [
+    "white",
+    "indigo",
+    "mustard"
+   ],
+   "in_stock": true,
+   "rating": 4.2,
+   "description": "Straight-cut pure cotton kurta for daily and festive wear."
+  },
+  {
+   "sku": "SKU-CL-002",
+   "name": "Denim jacket",
+   "category": "clothing",
+   "price": 2999,
+   "sizes": [
+    "M",
+    "L",
+    "XL"
+   ],
+   "colors": [
+    "blue",
+    "black"
+   ],
+   "in_stock": true,
+   "rating": 4.4,
+   "description": "Classic button-up denim jacket with two chest pockets."
+  },
+  {
+   "sku": "SKU-CL-003",
+   "name": "DryFit sports t-shirt",
+   "category": "clothing",
+   "price": 599,
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+   ],
+   "colors": [
+    "black",
+    "red",
+    "navy"
+   ],
+   "in_stock": true,
+   "rating": 4.0,
+   "description": "Quick-dry polyester t-shirt for running, gym and sports."
+  },
+  {
+   "sku": "SKU-CL-004",
+   "name": "Warm fleece hoodie",
+   "category": "clothing",
+   "price": 1799,
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "colors": [
+    "grey",
+    "olive",
+    "black"
+   ],
+   "in_stock": true,
+   "rating": 4.3,
+   "description": "Brushed fleece hoodie for winter, with a kangaroo pocket."
+  },
+  {
+   "sku": "SKU-CL-005",
+   "name": "Rain shell jacket",
+   "category": "clothing",
+   "price": 2499,
+   "sizes": [
+    "M",
+    "L",
+    "XL"
+   ],
+   "colors": [
+    "yellow",
+    "navy"
+   ],
+   "in_stock": true,
+   "rating": 4.1,
+   "description": "Packable waterproof rain jacket with a hood, for monsoon commutes and bike rides."
+  },
+  {
+   "sku": "SKU-CL-006",
+   "name": "Linen shirt",
+   "category": "clothing",
+   "price": 1599,
+   "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "colors": [
+    "white",
+    "sky blue",
+    "beige"
+   ],
+   "in_stock": true,
+   "rating": 4.2,
+   "description": "Breathable linen shirt for hot weather."
+  },
+  {
+   "sku": "SKU-EL-001",
+   "name": "Pulse Bluetooth speaker",
+   "category": "electronics",
+   "price": 3499,
+   "sizes": [],
+   "colors": [
+    "black",
+    "teal"
+   ],
+   "in_stock": true,
+   "rating": 4.5,
+   "description": "Portable waterproof Bluetooth speaker with 12-hour battery and deep bass."
+  },
+  {
+   "sku": "SKU-EL-002",
+   "name": "Aero wireless earbuds",
+   "category": "electronics",
+   "price": 1999,
+   "sizes": [],
+   "colors": [
+    "white",
+    "black"
+   ],
+   "in_stock": true,
+   "rating": 4.0,
+   "description": "True wireless earbuds with touch controls and a 24-hour charging case."
+  },
+  {
+   "sku": "SKU-EL-003",
+   "name": "Studio over-ear headphones",
+   "category": "electronics",
+   "price": 4999,
+   "sizes": [],
+   "colors": [
+    "black",
+    "silver"
+   ],
+   "in_stock": true,
+   "rating": 4.6,
+   "description": "Over-ear headphones with active noise cancellation and 30-hour battery."
+  },
+  {
+   "sku": "SKU-EL-004",
+   "name": "PowerCell 20000mAh power bank",
+   "category": "electronics",
+   "price": 1499,
+   "sizes": [],
+   "colors": [
+    "black"
+   ],
+   "in_stock": true,
+   "rating": 4.3,
+   "description": "20000mAh power bank with 22.5W fast charging and two USB ports."
+  },
+  {
+   "sku": "SKU-EL-005",
+   "name": "Smart fitness band",
+   "category": "electronics",
+   "price": 2299,
+   "sizes": [],
+   "colors": [
+    "black",
+    "pink"
+   ],
+   "in_stock": true,
+   "rating": 4.1,
+   "description": "Fitness band with heart-rate, sleep and step tracking, 10-day battery."
+  },
+  {
+   "sku": "SKU-EL-006",
+   "name": "Wired gaming mouse",
+   "category": "electronics",
+   "price": 899,
+   "sizes": [],
+   "colors": [
+    "black"
+   ],
+   "in_stock": false,
+   "rating": 4.2,
+   "description": "RGB wired gaming mouse with 6 programmable buttons."
+  },
+  {
+   "sku": "SKU-HK-001",
+   "name": "Steel water bottle 1L",
+   "category": "home_kitchen",
+   "price": 449,
+   "sizes": [],
+   "colors": [
+    "silver",
+    "blue",
+    "black"
+   ],
+   "in_stock": true,
+   "rating": 4.4,
+   "description": "Insulated stainless steel bottle, keeps water cold for 24 hours."
+  },
+  {
+   "sku": "SKU-HK-002",
+   "name": "Non-stick frying pan 26cm",
+   "category": "home_kitchen",
+   "price": 1199,
+   "sizes": [],
+   "colors": [
+    "black"
+   ],
+   "in_stock": true,
+   "rating": 4.0,
+   "description": "Induction-compatible non-stick frying pan."
+  },
+  {
+   "sku": "SKU-HK-003",
+   "name": "Electric kettle 1.5L",
+   "category": "home_kitchen",
+   "price": 999,
+   "sizes": [],
+   "colors": [
+    "steel"
+   ],
+   "in_stock": true,
+   "rating": 4.2,
+   "description": "1.5 litre stainless steel electric kettle with auto shut-off."
+  },
+  {
+   "sku": "SKU-HK-004",
+   "name": "Glass storage jars, set of 4",
+   "category": "home_kitchen",
+   "price": 749,
+   "sizes": [],
+   "colors": [
+    "clear"
+   ],
+   "in_stock": true,
+   "rating": 4.1,
+   "description": "Airtight borosilicate glass jars for the kitchen."
+  },
+  {
+   "sku": "SKU-SP-001",
+   "name": "Yoga mat 6mm",
+   "category": "sports",
+   "price": 899,
+   "sizes": [],
+   "colors": [
+    "purple",
+    "blue"
+   ],
+   "in_stock": true,
+   "rating": 4.3,
+   "description": "6mm anti-slip yoga mat with a carry strap."
+  },
+  {
+   "sku": "SKU-SP-002",
+   "name": "Adjustable dumbbells 10kg pair",
+   "category": "sports",
+   "price": 2799,
+   "sizes": [],
+   "colors": [
+    "black"
+   ],
+   "in_stock": true,
+   "rating": 4.2,
+   "description": "Pair of adjustable dumbbells, 2-10 kg each, for home workouts."
+  },
+  {
+   "sku": "SKU-SP-003",
+   "name": "Badminton racquet set",
+   "category": "sports",
+   "price": 1199,
+   "sizes": [],
+   "colors": [
+    "red",
+    "blue"
+   ],
+   "in_stock": true,
+   "rating": 3.9,
+   "description": "Two aluminium racquets with three shuttlecocks and a cover."
+  },
+  {
+   "sku": "SKU-BG-001",
+   "name": "Trek 30L backpack",
+   "category": "bags",
+   "price": 1799,
+   "sizes": [],
+   "colors": [
+    "black",
+    "grey",
+    "green"
+   ],
+   "in_stock": true,
+   "rating": 4.4,
+   "description": "30 litre water-resistant backpack with a laptop sleeve, for travel and trekking."
+  },
+  {
+   "sku": "SKU-BG-002",
+   "name": "Urban laptop backpack",
+   "category": "bags",
+   "price": 1499,
+   "sizes": [],
+   "colors": [
+    "black",
+    "navy"
+   ],
+   "in_stock": true,
+   "rating": 4.2,
+   "description": "Slim backpack that fits a 15.6 inch laptop, with an anti-theft back pocket."
+  },
+  {
+   "sku": "SKU-BG-003",
+   "name": "Weekender duffel bag",
+   "category": "bags",
+   "price": 2199,
+   "sizes": [],
+   "colors": [
+    "tan",
+    "black"
+   ],
+   "in_stock": true,
+   "rating": 4.3,
+   "description": "40 litre duffel bag for weekend trips, with a shoe compartment."
+  },
+  {
+   "sku": "SKU-HD-001",
+   "name": "Brass table lamp",
+   "category": "home_decor",
+   "price": 1499,
+   "sizes": [],
+   "colors": [
+    "brass"
+   ],
+   "in_stock": true,
+   "rating": 4.5,
+   "description": "Handcrafted brass table lamp with a cotton shade."
+  },
+  {
+   "sku": "SKU-HD-002",
+   "name": "Cotton cushion covers, set of 5",
+   "category": "home_decor",
+   "price": 699,
+   "sizes": [],
+   "colors": [
+    "indigo",
+    "mustard",
+    "grey"
+   ],
+   "in_stock": true,
+   "rating": 4.0,
+   "description": "Block-printed cotton cushion covers, 16 x 16 inch."
+  }
+ ]
+}

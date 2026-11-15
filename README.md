@@ -344,6 +344,27 @@ with a fallback; apps send one URL and one key. You call it with raw HTTP and wi
 watch the gateway fall back, then start the gateway and an app together with Docker Compose. Your Groq key stays in your course `.env`
 (`API_KEY`) and never enters an image. Prepares Mini-Project 1 (ShopAssist).
 
+## Session 27 — hybrid search and reranking
+
+**Pre-work at home (~80 MB once):**
+```powershell
+git pull ; uv sync                                                    # NEW: rank-bm25 (keyword search, pure Python)
+uv run python module04/s27_demo.py download                           # the reranker model; S27 then runs offline
+```
+```powershell
+uv run python module04/s27_demo.py all "SKU-EL-004" --in products     # keyword / vectors / hybrid / rerank side by side
+uv run python module04/s27_demo.py explain "HDFC no-cost EMI"          # where a BM25 score comes from, word by word
+uv run python module04/s27_demo.py fuse "PowerCell" --in products      # the RRF arithmetic
+uv run python module04/s27_demo.py compare                             # 22 questions x 5 methods: hit@3, MRR, exact vs meaning
+uv run python module04/s27_demo.py gate                                # the relevance gate: when to say "I don't know"
+uv run jupyter lab module04/s27_hybrid_rerank.ipynb                    # HOMEWORK: Parts A-D
+uv run python module04/s27_setup.py                                    # copies your file to <work repo>\s27\hybrid.py
+uv run python "<your work repo>\s27\hybrid.py"                         # YOUR fusion and reranking step; writes results.md
+uv run pytest tests/test_s27.py -rs                                     # checkpoint (offline)
+```
+Two corpora: the help centre and the 30-product catalog (`module04/products.json`). Terms: `module04/terms_s27.md` · stuck?
+`module04/s27_common_errors.md`.
+
 ## Session 26 — production vector stores: Qdrant, pgvector, Pinecone, Weaviate
 
 **Pre-work at home (good Wi-Fi, ~250 MB once):** Docker Desktop running, then
